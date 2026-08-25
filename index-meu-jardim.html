@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meu Jardim Food Park — Tour 360°</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css">
+<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+<style>
+html,body,#panorama{margin:0;width:100%;height:100%;overflow:hidden;background:#111;font-family:Arial,sans-serif}
+.top{position:fixed;z-index:5;top:15px;left:15px;background:#000b;color:#fff;padding:10px 14px;border-radius:12px;font-weight:bold}
+.top small{display:block;font-weight:normal;font-size:11px;margin-top:3px;opacity:.8}
+.menu{position:fixed;z-index:5;top:15px;right:15px;background:#000b;padding:10px;border-radius:14px;width:210px}
+.menu b{color:#fff;font-size:13px}.btn{display:block;width:100%;margin-top:6px;padding:9px;border:0;border-radius:9px;text-align:left;cursor:pointer}
+.hs{width:42px;height:42px;border-radius:50%;background:#1f5a3b;color:#fff;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold}
+@media(max-width:600px){.menu{top:auto;bottom:45px;right:10px}.top{top:10px;left:10px}}
+</style>
+</head>
+<body>
+<div id="panorama"></div>
+<div class="top">MEU JARDIM FOOD PARK<small>Tour Virtual 360° • Campos Business</small></div>
+<div class="menu">
+<b>📍 Ambientes</b>
+<button class="btn" onclick="go('salao')">01 • Salão principal</button>
+<button class="btn" onclick="go('jardim')">02 • Meu Jardim</button>
+<button class="btn" onclick="go('frontal')">03 • Meu Jardim — frontal</button>
+<button class="btn" onclick="go('bar')">04 • Bar / atendimento</button>
+</div>
+<script>
+function hs(div,args){div.innerHTML=args}
+const v=pannellum.viewer('panorama',{
+default:{firstScene:'salao',sceneFadeDuration:700,autoLoad:true,showControls:true},
+scenes:{
+salao:{title:'Salão principal',type:'equirectangular',panorama:'01-salao.jpeg',hotSpots:[
+{pitch:-5,yaw:80,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'→',clickHandlerFunc:()=>go('jardim')},
+{pitch:-5,yaw:-80,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'←',clickHandlerFunc:()=>go('bar')}]},
+jardim:{title:'Meu Jardim',type:'equirectangular',panorama:'02-meu-jardim.jpeg',hotSpots:[
+{pitch:-5,yaw:0,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'→',clickHandlerFunc:()=>go('frontal')},
+{pitch:-5,yaw:180,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'←',clickHandlerFunc:()=>go('salao')}]},
+frontal:{title:'Meu Jardim — frontal',type:'equirectangular',panorama:'03-meu-jardim-frontal.jpeg',hotSpots:[
+{pitch:-5,yaw:90,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'→',clickHandlerFunc:()=>go('bar')},
+{pitch:-5,yaw:-90,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'←',clickHandlerFunc:()=>go('jardim')}]},
+bar:{title:'Bar / atendimento',type:'equirectangular',panorama:'04-bar.jpeg',hotSpots:[
+{pitch:-5,yaw:180,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'←',clickHandlerFunc:()=>go('salao')},
+{pitch:-5,yaw:90,type:'custom',cssClass:'hs',createTooltipFunc:hs,createTooltipArgs:'→',clickHandlerFunc:()=>go('frontal')}]}
+}});
+function go(scene){v.loadScene(scene)}
+</script>
+</body>
+</html>
